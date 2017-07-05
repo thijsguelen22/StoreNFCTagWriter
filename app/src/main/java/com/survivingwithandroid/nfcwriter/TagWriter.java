@@ -26,19 +26,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.nfc.tech.Ndef;
-import android.nfc.tech.NdefFormatable;
+
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -49,24 +45,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONException;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import android.app.Activity;
-import java.util.Locale;
-import java.util.concurrent.ExecutionException;
-
 
 
 public class TagWriter extends AppCompatActivity {
@@ -81,13 +69,16 @@ public class TagWriter extends AppCompatActivity {
     // API urls
 
     public List SitesList;
+    public String SetURL;
     public String url = "http://thijs-jan.aoweb.nl/getUrls.php";
     public String LoadedXML;
-    TextView JSONOutDebug;
-    EditText content;
+    TextView ChosenURL;
+    private EditText content;
     private String XMLString;
+    public ArrayList<School> schools;
 
     private String JSONString;
+    public Spinner mySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +94,7 @@ public class TagWriter extends AppCompatActivity {
         //code voor de URLSpinner om de JSON met verschillende sites op te halen
 
         //debug voor het lezen van JSON
-        JSONOutDebug= (TextView)findViewById(R.id.JSONOutDebug);
+        ChosenURL= (TextView)findViewById(R.id.ChosenURL);
         content= (EditText)findViewById(R.id.content);
         try {
             run();
@@ -127,7 +118,7 @@ public class TagWriter extends AppCompatActivity {
         String readFeed = newString;
 
         // you can use this array to find the school ID based on name
-        ArrayList<School> schools = new ArrayList<School>();
+        schools = new ArrayList<School>();
         // you can use this array to populate your spinner
         ArrayList<String> schoolNames = new ArrayList<String>();
 
@@ -150,47 +141,31 @@ public class TagWriter extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Spinner mySpinner = (Spinner)findViewById(R.id.my_spinner);
+        mySpinner = (Spinner)findViewById(R.id.my_spinner2);
         mySpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, schoolNames));
-
-        //String readFeed = LoadedXML;
-
-
-        //final Spinner sp = (Spinner) findViewById(R.id.spinner);
-        //ArrayAdapter<CharSequence> aa = ArrayAdapter.createFromResource(this, R.array.tagContentType, android.R.layout.simple_spinner_dropdown_item);
-        //ArrayAdapter<CharSequence> aa = ArrayAdapter.createFromResource(this, R.array.tagContentType, android.R.layout.simple_spinner_dropdown_item);
-        //mySpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //mySpinner.setAdapter(mySpinner);
-
-        //content.setText(JSONString);
-
-        //final Spinner sp = (Spinner) findViewById(R.id.tagType);
-        //ArrayAdapter<CharSequence> aa = ArrayAdapter.createFromResource(this, R.array.tagContentType, android.R.layout.simple_spinner_dropdown_item);
-        //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //sp.setAdapter(aa);
-
-        final EditText et = (EditText) findViewById(R.id.content);
+        SetURL = mySpinner.getSelectedItem().toString();
 
         FloatingActionButton btn = (FloatingActionButton) findViewById(R.id.fab);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int pos = sp.getSelectedItemPosition();
-                String content = et.getText().toString();
-                message =  nfcMger.createUriMessage(content, "http://");
+                int pos = mySpinner.getSelectedItemPosition();
+                School sch = schools.get(pos);
+                String s = sch.getRedirect();
+                message =  nfcMger.createUriMessage(s, "http://");
+                ChosenURL.setText(s);
 
 
                 if (message != null) {
 
                     dialog = new ProgressDialog(TagWriter.this);
-                    dialog.setMessage("Tag NFC Tag please");
+                    dialog.setMessage("Houd de chip tegen uw toestel");
                     dialog.show();;
                 }
             }
         });
 
     }
-
 
     void run() throws IOException {
 
@@ -214,7 +189,6 @@ public class TagWriter extends AppCompatActivity {
                 TagWriter.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        JSONOutDebug.setText(myResponse);
                         //LoadedXML = myResponse;
                         JSONString = myResponse;
                     }

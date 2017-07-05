@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.survivingwithandroid.nfcwriter.TagWriter">
+    tools:context="com.survivingwithandroid.nfcwriter.addURL">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,14 +22,14 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_save" />
+        android:src="@android:drawable/stat_notify_sync_noanim" />
+
 
     <RelativeLayout
         android:id="@+id/mainLyt"
@@ -41,36 +41,25 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
-            android:id="@+id/cLabel"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Content" />
-
-        <Spinner
-            android:id="@+id/my_spinner2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="26dp" />
-
-        <TextView
-            android:id="@+id/ChosenURL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
             android:text="TextView"
-            android:layout_below="@+id/my_spinner2"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp"
+            tools:text="@string/typeURL" />
+
+        <EditText
+            android:id="@+id/newURL"
+            android:layout_width="343dp"
+            android:layout_height="42dp"
+            android:ems="10"
+            android:inputType="textUri"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="44dp"
+            android:layout_marginTop="38dp"
+            android:layout_below="@+id/textView4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
-        <!--<Spinner
-            android:id="@+id/tagType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/cLabel1" />-->
-
     </RelativeLayout>
-
 </android.support.design.widget.CoordinatorLayout>

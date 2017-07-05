@@ -4,4 +4,6 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="StoreLocation">Locatie: Test Locatie Jan Linders Gennep Fil. Nr: 84</string>
     <string name="UserName">Jacco Dijkema (test)</string>
+    <string name="ChooseURL">Kies de URL die U in de chip wilt instellen</string>
+    <string name="typeURL">Typ de URL die u in een chip wilt toevoegen</string>
 </resources>

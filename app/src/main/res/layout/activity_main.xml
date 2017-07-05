@@ -52,11 +52,12 @@
             android:id="@+id/SetSticker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="29dp"
             android:onClick="sendMessage"
-            android:text="Stel sticker in" />
+            android:text="Stel sticker in"
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3" />
 
         <Button
             android:id="@+id/AddLink"
@@ -64,16 +65,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/SetSticker"
             android:layout_centerHorizontal="true"
+            android:onClick="addURL"
             android:text="Voeg link toe" />
 
-        <TextView
-            android:id="@+id/jsonDebugM"
+        <Button
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/AddLink"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="76dp"
-            android:text="TextView" />
+            android:onClick="changeURL"
+            android:text="Verander URL in chip" />
+
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -25,7 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TagWriter"></activity>
+        <activity android:name=".TagWriter" />
+        <activity android:name=".addURL" />
+        <activity android:name=".changeURL"></activity>
     </application>
 
 </manifest>

@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        JsonDebugM= (TextView)findViewById(R.id.jsonDebugM);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         try {
             run();
@@ -98,9 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //LoadedXML = myResponse;
                         JSONString = myResponse;
-                        JsonDebugM.setText(myResponse);
                     }
                 });
 
@@ -110,6 +108,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMessage(View view) {
         Intent intent = new Intent(this, TagWriter.class);
+        String DaJsonValues = JSONString;
+        intent.putExtra("JSONValues", DaJsonValues);
+        startActivity(intent);
+    }
+
+    public void addURL(View view) {
+        Intent intent = new Intent(this, addURL.class);
+        //String DaJsonValues = JSONString;
+        //intent.putExtra("JSONValues", DaJsonValues);
+        startActivity(intent);
+    }
+
+    public void changeURL(View view) {
+        Intent intent = new Intent(this, changeURL.class);
         String DaJsonValues = JSONString;
         intent.putExtra("JSONValues", DaJsonValues);
         startActivity(intent);

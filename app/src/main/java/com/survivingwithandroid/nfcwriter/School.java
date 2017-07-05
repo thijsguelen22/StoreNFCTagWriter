@@ -15,7 +15,7 @@ public class School {
         this.url = url;
     }
     public String getRedirect() {
-        return url;
+        return redirect;
     }
     public void setRedirect(String redirect) {
         this.redirect = redirect;
